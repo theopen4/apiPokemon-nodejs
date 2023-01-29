@@ -11,5 +11,17 @@ app
    .use(bodyParser.json())
 
 sequelize.initDb()
+
+//nos different point de terminaison
 require('./src/routes/findAllPokemons')(app)
+require('./src/routes/findpokemonByPk')(app)
+require('./src/routes/createPokemon')(app)
+require('./src/routes/updatePokemon')(app)
+require('./src/routes/deletePokemon')(app)
+
+// on ajoute la gestion des erreurs 404
+app.use(({res}) =>{
+  const message = 'la ressource demande  nexiste pas '
+  res.status(404).json({message})
+})
 app.listen(port,()=>{console.log(`votre aplicaion a demarre sur le localhost: ${port}`)})
